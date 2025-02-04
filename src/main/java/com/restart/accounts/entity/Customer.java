@@ -9,10 +9,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("Customer-Data")
+@Document(collection = "Customer-Data")
 public class Customer extends BaseEntity {
 
     @Id
+    private  String id;
+
     private Long customerId;
 
     private String name;

@@ -12,9 +12,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Accounts-Data")
 public class Accounts  extends BaseEntity{
 
-    private String customerId;
-
     @Id
+    private String id;
+
+    private Long customerId;
+
     private Long accountNumber;
 
     private String accountType;
