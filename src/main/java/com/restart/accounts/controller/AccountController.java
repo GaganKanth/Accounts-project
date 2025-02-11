@@ -1,10 +1,13 @@
 package com.restart.accounts.controller;
 
 import com.restart.accounts.constants.AccountConstants;
+import com.restart.accounts.dto.AccountDto;
 import com.restart.accounts.dto.CustomerDto;
 import com.restart.accounts.dto.ErrorResponseDto;
 import com.restart.accounts.dto.ResponseDto;
+import com.restart.accounts.entity.AccountDetails;
 import com.restart.accounts.service.AccountService;
+import com.restart.accounts.service.UpdateAccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,9 +26,14 @@ public class AccountController {
 
     private final AccountService accountService;
 
+    private final UpdateAccountService updateAccountService;
+
+
     @Autowired
-    public AccountController(AccountService accountService) {
+    public AccountController(AccountService accountService, UpdateAccountService updateAccountService) {
         this.accountService = accountService;
+        this.updateAccountService = updateAccountService;
+
     }
 
     @Operation(
@@ -56,6 +64,19 @@ public class AccountController {
 
 
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDto>UpdateAccountDetails(@RequestParam Long AccountNumber,
+                                                               @RequestBody AccountDetails accountDetails){
+
+        updateAccountService.UpdateAccounts(AccountNumber,accountDetails);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ResponseDto(AccountConstants.STATUS_201, AccountConstants.MESSAGE_201));
+    }
+
+
+
 }
 
 
