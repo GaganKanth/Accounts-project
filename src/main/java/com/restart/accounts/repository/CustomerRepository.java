@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface CustomerRepository extends MongoRepository<Customer,Long> {
     Optional<Customer> findByMobileNumber(Long MobileNumber);
 
-
     Optional<Customer> findByCustomerId(Long CustomerId);
+
+    Optional<Customer>deleteByCustomerId(Long CustomerId);
 }

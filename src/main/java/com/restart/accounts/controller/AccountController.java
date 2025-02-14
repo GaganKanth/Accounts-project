@@ -1,12 +1,15 @@
 package com.restart.accounts.controller;
 
 import com.restart.accounts.constants.AccountConstants;
-import com.restart.accounts.dto.AccountDto;
 import com.restart.accounts.dto.CustomerDto;
 import com.restart.accounts.dto.ErrorResponseDto;
 import com.restart.accounts.dto.ResponseDto;
 import com.restart.accounts.entity.AccountDetails;
+import com.restart.accounts.entity.Accounts;
+import com.restart.accounts.entity.Customer;
 import com.restart.accounts.service.AccountService;
+import com.restart.accounts.service.DeleteAccountDetails;
+import com.restart.accounts.service.GetAccountService;
 import com.restart.accounts.service.UpdateAccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -28,12 +31,18 @@ public class AccountController {
 
     private final UpdateAccountService updateAccountService;
 
+    private final GetAccountService getAccountService;
+
+    private final DeleteAccountDetails deleteAccountDetails;
+
 
     @Autowired
-    public AccountController(AccountService accountService, UpdateAccountService updateAccountService) {
+    public AccountController(AccountService accountService, UpdateAccountService updateAccountService, GetAccountService getAccountService, DeleteAccountDetails deleteAccountDetails) {
         this.accountService = accountService;
         this.updateAccountService = updateAccountService;
 
+        this.getAccountService = getAccountService;
+        this.deleteAccountDetails = deleteAccountDetails;
     }
 
     @Operation(
@@ -74,6 +83,26 @@ public class AccountController {
                 .status(HttpStatus.CREATED)
                 .body(new ResponseDto(AccountConstants.STATUS_201, AccountConstants.MESSAGE_201));
     }
+
+    @GetMapping("/fetchCustomerDetails")
+    public Customer fetchCustomerDetails(@RequestParam Long CustomerId){
+        return getAccountService.getCustomerDetails(CustomerId);
+    }
+
+    @GetMapping("/FetchAccountDetails")
+    public Accounts fetchAccountDetails(@RequestParam Long AccountNumber){
+        return getAccountService.getAccountDetails(AccountNumber);
+    }
+
+    @DeleteMapping("/deleteAccountDetails")
+    public Accounts deleteAccountDetails(@RequestParam Long AccountNumber){
+        return deleteAccountDetails.deleteAccountDetails(AccountNumber);
+    }
+    @DeleteMapping("/deleteCustomerDetails")
+    public Customer deleteCustomerDetails(@RequestParam Long CustomerNumber){
+        return deleteAccountDetails.deleteCustomerDetails(CustomerNumber);
+    }
+
 
 
 

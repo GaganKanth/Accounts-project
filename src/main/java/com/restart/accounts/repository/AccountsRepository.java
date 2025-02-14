@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface AccountsRepository extends MongoRepository<Accounts,Long> {
 
     Optional<Accounts> findByAccountNumber(Long AccountNumber);
+
+   Optional<Accounts>deleteByAccountNumber(Long AccountNumber);
+
 }

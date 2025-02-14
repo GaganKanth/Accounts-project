@@ -34,4 +34,23 @@ public class GlobalException {
         );
         return new ResponseEntity<>(errorResponseDto,HttpStatus.NOT_FOUND);
     }
+
+    public ResponseEntity<ErrorResponseDto>HandleCustomerNotFoundException(CustomerNotFoundException exception, WebRequest webRequest){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDto,HttpStatus.NOT_FOUND);
+    }
+    public ResponseEntity<ErrorResponseDto>HandleAccountNotFoundException(AccountDetailsNotFoundException exception, WebRequest webRequest) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
+    }
 }
