@@ -1,6 +1,7 @@
 package com.restart.accounts.controller;
 
 import com.restart.accounts.constants.AccountConstants;
+import com.restart.accounts.dto.AccountDto;
 import com.restart.accounts.dto.CustomerDto;
 import com.restart.accounts.dto.ErrorResponseDto;
 import com.restart.accounts.dto.ResponseDto;
@@ -85,21 +86,21 @@ public class AccountController {
     }
 
     @GetMapping("/fetchCustomerDetails")
-    public Customer fetchCustomerDetails(@RequestParam Long CustomerId){
+    public CustomerDto fetchCustomerDetails(@RequestParam Long CustomerId){
         return getAccountService.getCustomerDetails(CustomerId);
     }
 
     @GetMapping("/FetchAccountDetails")
-    public Accounts fetchAccountDetails(@RequestParam Long AccountNumber){
+    public AccountDto fetchAccountDetails(@RequestParam Long AccountNumber){
         return getAccountService.getAccountDetails(AccountNumber);
     }
 
     @DeleteMapping("/deleteAccountDetails")
-    public Accounts deleteAccountDetails(@RequestParam Long AccountNumber){
+    public AccountDto deleteAccountDetails(@RequestParam Long AccountNumber){
         return deleteAccountDetails.deleteAccountDetails(AccountNumber);
     }
     @DeleteMapping("/deleteCustomerDetails")
-    public Customer deleteCustomerDetails(@RequestParam Long CustomerNumber){
+    public CustomerDto deleteCustomerDetails(@RequestParam Long CustomerNumber){
         return deleteAccountDetails.deleteCustomerDetails(CustomerNumber);
     }
 

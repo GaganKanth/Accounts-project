@@ -6,6 +6,5 @@ import lombok.Data;
 public class AccountDetails {
 
     private String accountType;
-
     private String branchAddress;
 }

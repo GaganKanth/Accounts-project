@@ -1,10 +1,8 @@
 package com.restart.accounts.service;
 
 import com.restart.accounts.dto.AccountDto;
-import com.restart.accounts.dto.CustomerDto;
 import com.restart.accounts.entity.AccountDetails;
 import com.restart.accounts.entity.Accounts;
-import com.restart.accounts.entity.Customer;
 import com.restart.accounts.exception.ResourceNotFoundException;
 import com.restart.accounts.repository.AccountsRepository;
 import com.restart.accounts.repository.CustomerRepository;
@@ -12,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static com.restart.accounts.mapper.AccountsMapper.mapAccountsToAccountDto;
 
 @Service
 public class UpdateAccountService {
@@ -26,7 +26,7 @@ public class UpdateAccountService {
     }
 
 
-    public Accounts UpdateAccounts(Long accountNumber, AccountDetails accountDetails){
+    public AccountDto UpdateAccounts(Long accountNumber, AccountDetails accountDetails){
 
         Optional<Accounts> optionalRequest = accountsRepository.findByAccountNumber(accountNumber);
         if(!optionalRequest.isPresent()){
@@ -43,8 +43,8 @@ public class UpdateAccountService {
         }
 
         // Save the updated account in the database
-       Accounts account = accountsRepository.save(accounts);
-        return account;
+        Accounts updatedAccount = accountsRepository.save(accounts);;
+        return mapAccountsToAccountDto(updatedAccount);
     }
 
 

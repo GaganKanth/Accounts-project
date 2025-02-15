@@ -9,5 +9,7 @@ public class CustomerDto {
 
     private String email;
 
-    private long mobileNumber;
+    private Long mobileNumber;
+
+
 }
