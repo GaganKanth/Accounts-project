@@ -17,15 +17,18 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping(value = "/accounts-api", produces = MediaType.APPLICATION_JSON_VALUE)
+@Validated
 public class AccountController {
 
     private final AccountService accountService;
@@ -66,7 +69,7 @@ public class AccountController {
     )
 
     @PostMapping("/save")
-    public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
         accountService.AccountDetails(customerDto);
         return  ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -76,7 +79,7 @@ public class AccountController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto>UpdateAccountDetails(@RequestParam Long AccountNumber,
+    public ResponseEntity<ResponseDto>UpdateAccountDetails(@Valid @RequestParam Long AccountNumber,
                                                                @RequestBody AccountDetails accountDetails){
 
         updateAccountService.UpdateAccounts(AccountNumber,accountDetails);

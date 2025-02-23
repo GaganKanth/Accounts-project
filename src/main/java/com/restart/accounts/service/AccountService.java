@@ -35,7 +35,7 @@ public class AccountService {
 
     public AccountDto AccountDetails(CustomerDto customerDto) {
         // Check if mobile number already exists
-        Optional<Customer> existingCustomer = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
+        Optional<Customer> existingCustomer = customerRepository.findByMobileNumber(Long.valueOf(customerDto.getMobileNumber()));
         if (existingCustomer.isPresent()) {
             throw new MobileNumberAlreadyPresent("Mobile number already exists in the DB");
         }
