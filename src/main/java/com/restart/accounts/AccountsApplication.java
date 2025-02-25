@@ -7,6 +7,9 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @SpringBootApplication(scanBasePackages = {
 		"com.restart.accounts"})
@@ -29,6 +32,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 				description = "Project"
 		)
 )
+@EnableMongoAuditing(auditorAwareRef = "auditAwareImpl")
 public class AccountsApplication {
 
 	public static void main(String[] args) {
